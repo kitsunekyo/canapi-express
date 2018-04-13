@@ -4,14 +4,15 @@ html
     title= title
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    <nav class="navbar navbar-default navbar-static-top">
+  body#app
+    <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="#">
         <img src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
       </a>
     </nav>
-    div.container-fluid
-      block content
+    div.page
+      section.container-fluid
+        block content
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.card
+    div.card-body
+      div.card-title CanaPi
+      div.card-text
+        form(method='POST' action='/pump/on')
+          div.form-group
+            button.btn.btn-primary(type='submit') Pump On
+        form(method='POST' action='/pump/off')
+          div.form-group
+            button.btn.btn-primary(type='submit') Pump Off

@@ -1,13 +1,13 @@
-var express = require('express');
-var app = express();
-var createError = require('http-errors');
-var debug = require('debug')('canapi-express:server');
-var http = require('http');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const app = express();
+const createError = require('http-errors');
+const debug = require('debug')('canapi-express:server');
+const http = require('http');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -45,7 +45,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -69,7 +69,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -93,8 +93,8 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  const addr = server.address();
+  const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
