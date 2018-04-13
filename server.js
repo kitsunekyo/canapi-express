@@ -1,31 +1,62 @@
 const express = require('express');
+const logger = require('morgan');
+const path = require('path');
+const mongoose = require('mongoose');
 const app = express();
 const createError = require('http-errors');
 const debug = require('debug')('canapi-express:server');
 const http = require('http');
-const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const config = require('./app/config');
 
-const indexRouter = require('./routes/index');
+const apiRouter = require('./app/routes/api');
 
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: false
+}));
+
+var port = normalizePort(process.env.PORT || '8080');
+app.set('port', port);
+
+// View Engine Config
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(logger('dev'));
 
-app.use('/', indexRouter);
+// Connect to database
+mongoose.connect(config.DB)
 
+// Routes
+app.use('/api', apiRouter);
+app.get('/', function (req, res, next) {
+  res.sendfile('./public/index.html')
+})
+
+// Static Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
+// Access Control Middleware
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:' + port)
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
+  // Pass to next layer of middleware
+  next()
+});
+
+// 404 Middleware
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
-app.use(function(err, req, res, next) {
+// Dev Error Middleware
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -35,9 +66,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var port = normalizePort(process.env.PORT || '8080');
-app.set('port', port);
-
+// Server Init
 var server = http.createServer(app);
 
 server.listen(port);
@@ -69,9 +98,9 @@ function onError(error) {
     throw error;
   }
 
-  const bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string' ?
+    'Pipe ' + port :
+    'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -94,8 +123,8 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  const bind = typeof addr === 'string' ?
+    'pipe ' + addr :
+    'port ' + addr.port;
   debug('Listening on ' + bind);
 }

@@ -1,38 +1,28 @@
 /* eslint-disable */
 const webpack = require('webpack');
 const vueloader = require('vue-loader');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const extractCSS = new ExtractTextPlugin({
-  filename: 'core.bundle.css',
-});
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
   mode: 'development',
-  entry: {
-    core: './app/js/app.js',
-  },
-  externals: ['window'],
+  entry: './resources/assets/js/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist',
+    path: path.resolve(__dirname, './public'),
+    publicPath: '/public/',
+    filename: 'main.bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.(js)$/,
-        enforce: "pre",
         use: [
           "babel-loader",
-          "eslint-loader"
         ],
-        exclude: path.resolve(__dirname, 'node_modules'),
+        include: path.resolve(__dirname, 'resources/assets/js'),
       },
       {
-        enforce: 'pre',
         test: /\.vue$/,
         use: [
           {
@@ -43,34 +33,23 @@ module.exports = {
               }
             }
           },
-          "eslint-loader"
         ],
-        include: path.resolve(__dirname, 'app'),
+        include: path.resolve(__dirname, 'resources/assets/js/components'),
       },
       {
         test: /\.scss$/,
-        include: path.resolve(__dirname, 'app'),
-        use: extractCSS.extract({
-          use: [{
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              minimize: true,
-            },
-          }, {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
-          }],
-          fallback: 'style-loader?sourceMap',
-          publicPath: '/dist',
-        }),
+        include: path.resolve(__dirname, 'resources/assets/scss'),
+        use: [{
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader',
+        }, {
+          loader: 'sass-loader',
+        }],
       },
     ],
   },
   plugins: [
-    extractCSS,
     new webpack.ProvidePlugin({
       Vue: 'vue',
       Vuex: 'vuex',

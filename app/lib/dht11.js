@@ -5,7 +5,7 @@ function DHT11Factory() {
 }
 DHT11Factory.prototype.read = function() {
   return new Promise((resolve, reject) => {
-    PythonShell.run('python-scripts/dht.py', (err, results) => {
+    PythonShell.run('app/python-scripts/dht.py', (err, results) => {
       if (err) throw err;
       if (results.length > 1) {
         let air_humidity = parseFloat(results[0]);
