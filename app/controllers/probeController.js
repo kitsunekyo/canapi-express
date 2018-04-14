@@ -22,6 +22,14 @@ const probeController = {
       res.status(200).json(probe);
     });
   },
+  mock: function(req, res, next) {
+    Probe.collection.insert(req.body, (error, dataset) => {
+      if (error) {
+        res.status(400).send('Unable to create Probe');
+      }
+      res.status(200).json(dataset);
+    });
+  },
 };
 
 module.exports = probeController;
