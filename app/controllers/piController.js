@@ -1,5 +1,8 @@
 // const PumpFactory = require('./../lib/pump');
-const DHT11Factory = require('./../lib/dht11').__mock_DHT11Factory;
+// const DHT11Factory = require('./../lib/dht11');
+
+const PumpFactory = require('./../mocks/lib/pump');
+const DHT11Factory = require('./../mocks/lib/dht11');
 
 const piController = {
   getDHT: function (req, res, next) {
@@ -10,18 +13,44 @@ const piController = {
   },
   startPump: function (req, res, next) {
     const pump = new PumpFactory(27);
-    pump.on();
-    res.render('index');
+    pump.on().then(() => {
+      res.send('pump started');
+    }, (err) => {
+      //
+    });
   },
   stopPump: function (req, res, next) {
     const pump = new PumpFactory(27);
-    pump.off();
-    res.render('index');
+    pump.off().then(() => {
+      res.send('pump stopped');
+    }, (err) => {
+      //
+    });
   },
-  getStatus: function(req, res, next) {
+  getSensors: function (req, res, next) {
     const dht = new DHT11Factory();
     dht.read().then((reading) => {
       res.send(reading);
+    });
+  },
+  getPumpStatus: function (req, res, next) {
+    const pump = new PumpFactory(27);
+    pump.getState().then((state) => {
+      res.send(state);
+    }, (e) => {
+      console.log(e);
+    });
+  },
+  water: function (req, res, next) {
+    const pump = new PumpFactory(27);
+    pump.runFor(5000).then(() => {
+      res.send('watered');
+    }, (err) => {
+      pump.off().then(() => {
+        res.send('pump stopped');
+      }, (err) => {
+        //
+      });
     });
   },
 };

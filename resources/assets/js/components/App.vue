@@ -24,6 +24,18 @@
             </div>
           </div>
         </div>
+        <div class="col-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              WaterPump
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <pump></pump>
+              </p>
+            </div>
+          </div>
+        </div>
         <div class="col-12">
           <div class="card">
             <div class="card-header">
@@ -43,16 +55,17 @@
 <script>
 import probesLog from './ProbesLog.vue';
 import monitor from './Monitor.vue';
+import pump from './Pump.vue';
 
 export default {
   data: function() {
     return {
-      name: "Alex",
     };
   },
   components: {
     probesLog,
     monitor,
+    pump,
   },
   mounted: function() {
   }

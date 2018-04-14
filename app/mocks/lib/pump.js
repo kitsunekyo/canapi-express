@@ -1,37 +1,33 @@
-const Gpio = require('onoff').Gpio;
-
 function PumpFactory(pin) {
   try {
-    this.gpio = new Gpio(pin, 'out');
-    this.gpio.writeSync(1);
-    this.status = this.gpio.readSync();
+    this.gpio = 1;
+    this.status = this.gpio;
   } catch (e) {
     console.log('couldnt attach to GPIO pin #' + pin);
   }
   return this;
-}
+};
 PumpFactory.prototype.on = function () {
   return new Promise((resolve, reject) => {
-    this.gpio.writeSync(0);
+    this.gpio = 0;
     resolve();
   });
-
 };
 PumpFactory.prototype.off = function () {
   return new Promise((resolve, reject) => {
-    this.gpio.writeSync(1);
+    this.gpio = 1;
     resolve();
   });
-
 };
-PumpFactory.prototype.runFor = function (duration) {
+PumpFactory.prototype.runFor = function (duration = 5000) {
   return new Promise((resolve, reject) => {
     this.off(); // shut off first
     this.on();
-    setTimeout(this.off(), 1500);
-    resolve();
+    setTimeout(() => {
+      this.off();
+      resolve();
+    }, duration);
   });
-
 };
 PumpFactory.prototype.getState = function () {
   return new Promise((resolve, reject) => {
@@ -44,5 +40,4 @@ PumpFactory.prototype.getState = function () {
     reject();
   });
 };
-
 module.exports = PumpFactory;
