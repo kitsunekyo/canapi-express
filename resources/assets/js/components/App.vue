@@ -11,8 +11,8 @@
       </div>
     </nav>
     <div class="site-content container">
-      <div class="row">
-        <div class="col-12 mb-4">
+      <div class="row row-eq-height">
+        <div class="col-8 mb-4">
           <div class="card">
             <div class="card-header">
               Plant Monitor
@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 mb-4">
+        <div class="col-4 mb-4">
           <div class="card">
             <div class="card-header">
               WaterPump

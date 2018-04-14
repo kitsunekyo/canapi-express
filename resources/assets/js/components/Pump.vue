@@ -1,19 +1,19 @@
 <template>
   <div class="pump">
-    <div class="status" v-if="watering">
+    <div class="status mb-2" v-if="watering">
       <div class="status-icon status--active">
         <i class="fas fa-spinner fa-pulse"></i><br />
       </div>
       <span>watering in progress</span>
     </div>
-    <div class="status" v-else>
+    <div class="status mb-2" v-else>
       <div class="status-icon" :class="{ 'status-icon--active' : status === 'on'}">
         <i class="fas fa-power-off ui" @click="togglePump"></i><br />
       </div>
       <span>{{ status }}</span>
     </div>
-    <div class="btn btn-info" @click="getStatus"><i class="fas fa-sync-alt"></i> Refresh</div>
-    <div class="btn btn-warning" @click="water"><i class="fas fa-tint"></i> Water Manually</div>
+    <div class="btn btn-info btn-xs" @click="getStatus"><i class="fas fa-sync-alt"></i> Refresh</div>
+    <div class="btn btn-warning btn-xs" @click="water"><i class="fas fa-tint"></i> Water Manually</div>
     <div class="updated" v-if="lastUpdated !== null">Last Updated <br />{{ lastUpdated.format('HH:mm:ss - DD/MM/YY') }}</div>
   </div>
 </template>
@@ -88,6 +88,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.pump {
+  text-align: center;
+}
 .status {
   color: #ddd;
   text-align: center;

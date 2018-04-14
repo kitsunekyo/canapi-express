@@ -17099,7 +17099,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n\n.ui {\n  cursor: pointer; }\n", ""]);
+exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
 
 // exports
 
@@ -17156,7 +17156,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.status {\n  color: #ddd;\n  text-align: center;\n}\n.status-icon {\n    font-size: 3rem;\n    color: #ddd;\n    transition: all 0.25s ease;\n}\n.status-icon--active {\n      color: #9ecc54;\n}\n.status-icon:hover {\n      color: #888;\n}\n.status-icon:hover.status-icon--active {\n        color: #c1e28b;\n}\n.updated {\n  font-size: 0.8rem;\n  color: #b1b1b1;\n  font-style: italic;\n  margin-top: 1rem;\n}\n", ""]);
+exports.push([module.i, "\n.pump {\n  text-align: center;\n}\n.status {\n  color: #ddd;\n  text-align: center;\n}\n.status-icon {\n    font-size: 3rem;\n    color: #ddd;\n    transition: all 0.25s ease;\n}\n.status-icon--active {\n      color: #9ecc54;\n}\n.status-icon:hover {\n      color: #888;\n}\n.status-icon:hover.status-icon--active {\n        color: #c1e28b;\n}\n.updated {\n  font-size: 0.8rem;\n  color: #b1b1b1;\n  font-style: italic;\n  margin-top: 1rem;\n}\n", ""]);
 
 // exports
 
@@ -35592,8 +35592,8 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "site-content container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 mb-4" }, [
+      _c("div", { staticClass: "row row-eq-height" }, [
+        _c("div", { staticClass: "col-8 mb-4" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("\n            Plant Monitor\n          ")
@@ -35605,7 +35605,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 mb-4" }, [
+        _c("div", { staticClass: "col-4 mb-4" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("\n            WaterPump\n          ")
@@ -35702,12 +35702,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "pump" }, [
     _vm.watering
-      ? _c("div", { staticClass: "status" }, [
+      ? _c("div", { staticClass: "status mb-2" }, [
           _vm._m(0),
           _vm._v(" "),
           _c("span", [_vm._v("watering in progress")])
         ])
-      : _c("div", { staticClass: "status" }, [
+      : _c("div", { staticClass: "status mb-2" }, [
           _c(
             "div",
             {
@@ -35726,15 +35726,17 @@ var render = function() {
           _c("span", [_vm._v(_vm._s(_vm.status))])
         ]),
     _vm._v(" "),
-    _c("div", { staticClass: "btn btn-info", on: { click: _vm.getStatus } }, [
-      _c("i", { staticClass: "fas fa-sync-alt" }),
-      _vm._v(" Refresh")
-    ]),
+    _c(
+      "div",
+      { staticClass: "btn btn-info btn-xs", on: { click: _vm.getStatus } },
+      [_c("i", { staticClass: "fas fa-sync-alt" }), _vm._v(" Refresh")]
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "btn btn-warning", on: { click: _vm.water } }, [
-      _c("i", { staticClass: "fas fa-tint" }),
-      _vm._v(" Water Manually")
-    ]),
+    _c(
+      "div",
+      { staticClass: "btn btn-warning btn-xs", on: { click: _vm.water } },
+      [_c("i", { staticClass: "fas fa-tint" }), _vm._v(" Water Manually")]
+    ),
     _vm._v(" "),
     _vm.lastUpdated !== null
       ? _c("div", { staticClass: "updated" }, [
@@ -35808,7 +35810,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "btn btn-secondary",
+                staticClass: "btn btn-info btn-xs",
                 on: { click: _vm.getStatus }
               },
               [_c("i", { staticClass: "fas fa-sync-alt" }), _vm._v(" Refresh")]

@@ -25,7 +25,7 @@
     </div>
     <div class="row">
       <div class="col">
-          <div class="btn btn-secondary" @click="getStatus"><i class="fas fa-sync-alt"></i> Refresh</div>
+          <div class="btn btn-info btn-xs" @click="getStatus"><i class="fas fa-sync-alt"></i> Refresh</div>
           <div class="updated">Last Updated <br />{{ lastUpdated.format('HH:mm:ss - DD/MM/YY') }}</div>
         </div>
       </div>

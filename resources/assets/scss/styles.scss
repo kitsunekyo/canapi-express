@@ -3,19 +3,11 @@ body {
     color: #444;
 }
 
-.navbar {
-    border-bottom: 10px solid #9ecc54
-}
-
-.navbar-logo {
-    color: #9ecc54;
-}
-
+@import './components/navbar';
+@import './components/card';
+@import './elements/button';
+@import './elements/ui';
 .site-content {
     padding-top: 1rem;
     margin-bottom: 5rem;
-}
-
-.ui {
-    cursor: pointer;
 }
