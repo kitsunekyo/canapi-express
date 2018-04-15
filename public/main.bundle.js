@@ -1892,10 +1892,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
     return {
+      loading: true,
       status: null,
       lastUpdated: null
     };
@@ -1905,9 +1910,11 @@ exports.default = {
     getStatus: function getStatus() {
       var _this = this;
 
+      this.loading = true;
       _axios2.default.get("http://localhost:8080/api/status").then(function (response) {
         _this.status = response.data;
         _this.lastUpdated = new _moment2.default();
+        _this.loading = false;
       });
     }
   },
@@ -17099,7 +17106,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
+exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.card-body {\n  position: relative; }\n\n.loader {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  left: 0;\n  color: #777;\n  font-size: 2rem;\n  z-index: 5;\n  background-color: rgba(255, 255, 255, 0.8); }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
 
 // exports
 
@@ -35779,54 +35786,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.status !== null
-    ? _c("div", { staticClass: "monitor" }, [
-        _c("div", { staticClass: "row mb-4" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "monitor-item" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "monitor-item__content" }, [
-                _vm._v(_vm._s(_vm.status.air_temperature) + "°C")
-              ])
-            ])
-          ]),
+  return _c("div", { staticClass: "monitor" }, [
+    _vm.loading
+      ? _c("div", { staticClass: "loader" }, [
+          _c("div", { staticClass: "loader-bg" }),
           _vm._v(" "),
-          _c("div", { staticClass: "col" }, [
-            _c("div", { staticClass: "monitor-item" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "monitor-item__content" }, [
-                _vm._v(_vm._s(_vm.status.air_humidity) + "%")
-              ])
-            ])
-          ]),
+          _vm._m(0)
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-4" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "monitor-item" }, [
+          _vm._m(1),
           _vm._v(" "),
-          _vm._m(2)
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c(
-              "div",
-              {
-                staticClass: "btn btn-info btn-xs",
-                on: { click: _vm.getStatus }
-              },
-              [_c("i", { staticClass: "fas fa-sync-alt" }), _vm._v(" Refresh")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "updated" }, [
-              _vm._v("Last Updated "),
-              _c("br"),
-              _vm._v(_vm._s(_vm.lastUpdated.format("HH:mm:ss - DD/MM/YY")))
-            ])
+          _c("div", { staticClass: "monitor-item__content" }, [
+            _vm._v(_vm._s(_vm.status.air_temperature) + "°C")
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "monitor-item" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "monitor-item__content" }, [
+            _vm._v(_vm._s(_vm.status.air_humidity) + "%")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(3)
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "div",
+          { staticClass: "btn btn-info btn-xs", on: { click: _vm.getStatus } },
+          [_c("i", { staticClass: "fas fa-sync-alt" }), _vm._v(" Refresh")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "updated" }, [
+          _vm._v("Last Updated "),
+          _c("br"),
+          _vm._v(_vm._s(_vm.lastUpdated.format("HH:mm:ss - DD/MM/YY")))
+        ])
       ])
-    : _vm._e()
+    ])
+  ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "loader-content" }, [
+      _c("i", { staticClass: "fas fa-spinner fa-pulse" })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

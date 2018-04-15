@@ -1,5 +1,9 @@
 <template>
-  <div class="monitor" v-if="status !== null">
+  <div class="monitor">
+    <div class="loader" v-if="loading">
+      <div class="loader-bg"></div>
+      <div class="loader-content"><i class="fas fa-spinner fa-pulse"></i></div>
+    </div>
     <div class="row mb-4">
       <div class="col">
         <div class="monitor-item">
@@ -39,15 +43,18 @@ import moment from "moment";
 export default {
   data() {
     return {
+      loading: true,
       status: null,
       lastUpdated: null
     };
   },
   methods: {
     getStatus() {
+      this.loading = true;
       axios.get(`http://localhost:8080/api/status`).then(response => {
         this.status = response.data;
         this.lastUpdated = new moment();
+        this.loading = false;
       });
     }
   },
