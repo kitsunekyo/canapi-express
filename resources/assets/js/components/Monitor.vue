@@ -46,8 +46,11 @@ export default {
   data() {
     return {
       loading: true,
-      status: null,
-      lastUpdated: null
+      status: {
+        air_temperature: 0,
+        air_humidity: 0,
+      },
+      lastUpdated: moment(),
     };
   },
   methods: {

@@ -1887,8 +1887,11 @@ exports.default = {
   data: function data() {
     return {
       loading: true,
-      status: null,
-      lastUpdated: null
+      status: {
+        air_temperature: 0,
+        air_humidity: 0
+      },
+      lastUpdated: (0, _moment2.default)()
     };
   },
 
