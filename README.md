@@ -1,4 +1,15 @@
 # cannapi-express
+Web Dashboard for your garden.
+
+- control your watering system from the comfort of your pc or mobile
+- get an overview of your garden environment
+- log all data to a mongodb database
+- [todo] automate watering with cron
+- [todo] automate probing and sending data to mongodb via cron
+- [todo] camera live view
+
+![screenshot](screenshot.JPG)
+
 Hardware:
 - Raspberry Pi 3
 - SD Card
