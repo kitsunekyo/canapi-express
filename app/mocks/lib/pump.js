@@ -1,3 +1,4 @@
+// mock
 function PumpFactory(pin) {
   try {
     this.gpio = 1;

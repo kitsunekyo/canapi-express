@@ -2,7 +2,7 @@ const ENV = require('./../../ENV');
 
 const DHT11Factory = ENV.PI ? require('./../lib/dht11') : require('./../mocks/lib/dht11');
 const dht = new DHT11Factory();
-const moistureSensorFactory = require('./../lib/moistureSensor');
+const moistureSensorFactory = ENV.PI ? require('./../lib/moistureSensor') : require('./../mocks/lib/moistureSensor');
 const moistureSensor = moistureSensorFactory(17);
 
 const piController = {
