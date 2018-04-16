@@ -79,6 +79,7 @@
 /***/ (function(module, exports) {
 
 module.exports = {
+  PI: false,
   SERVER: {
     HOST: 'http://localhost:8080',
     API: 'http://localhost:8080',
@@ -2123,9 +2124,14 @@ exports.default = {
 
       this.loading = true;
       _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/water").then(function (res) {
-        _this2.getStatus();
-        _this2.watering = false;
-        _this2.loading = false;
+        try {
+          setTimeout(function () {
+            _this2.watering = false;
+            _this2.loading = false;
+          }, res.data.data.timeout);
+        } catch (e) {
+          //
+        }
       }, function (err) {
         //
       });

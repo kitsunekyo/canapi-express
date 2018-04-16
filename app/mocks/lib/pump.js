@@ -25,16 +25,16 @@ PumpFactory.prototype.runFor = function (duration = 5000) {
     this.on();
     setTimeout(() => {
       this.off();
-      resolve();
     }, duration);
+    resolve();
   });
 };
 PumpFactory.prototype.getState = function () {
   return new Promise((resolve, reject) => {
     const pinState = this.gpio;
     let status = "unknown";
-    if (this.gpio !== undefined) {
-      status = this.gpio === 1 ? "off" : "on";
+    if (this.status !== undefined) {
+      status = this.status === 1 ? "off" : "on";
       resolve(status);
     }
     reject();

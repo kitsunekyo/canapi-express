@@ -48,9 +48,14 @@ export default {
       this.loading = true;
       axios.post(`${ENV.SERVER.API}/api/pump/water`).then(
         res => {
-          this.getStatus();
-          this.watering = false;
-          this.loading = false;
+          try {
+            setTimeout(()=>{
+              this.watering = false;
+              this.loading = false;
+            }, res.data.data.timeout);
+          } catch (e) {
+            //
+          }
         },
         err => {
           //
