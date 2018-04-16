@@ -17,5 +17,6 @@ router.post('/pump/water', pumpController.water);
 router.get('/status', piController.getSensors);
 
 router.get('/dht', piController.getDHT);
+router.get('/sensors/moisture', piController.getMoisture);
 
 module.exports = router;
