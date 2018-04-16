@@ -1,12 +1,13 @@
 <template>
   <div class="pump">
-    <div class="status mb-2" v-if="watering">
-      <div class="status-icon status--active">
-        <i class="fas fa-spinner fa-pulse"></i><br />
+    <div class="loader" v-if="loading">
+      <div class="loader-bg"></div>
+      <div class="loader-content">
+        <i class="fas fa-spinner fa-pulse"></i>
+        <div class="loader-text">please wait</div>
       </div>
-      <span>watering in progress</span>
     </div>
-    <div class="status mb-2" v-else>
+    <div class="status mb-2">
       <div class="status-icon" :class="{ 'status-icon--active' : status === 'on'}">
         <i class="fas fa-power-off ui" @click="togglePump"></i><br />
       </div>
@@ -25,9 +26,9 @@ import ENV from './../../../../ENV';
 export default {
   data() {
     return {
+      loading: true,
       status: "unknown",
       lastUpdated: null,
-      watering: false
     };
   },
   methods: {
@@ -36,6 +37,7 @@ export default {
         res => {
           this.status = res.data;
           this.lastUpdated = new moment();
+          this.loading = false;
         },
         err => {
           //
@@ -43,11 +45,12 @@ export default {
       );
     },
     water() {
-      this.watering = true;
+      this.loading = true;
       axios.post(`${ENV.SERVER.API}/api/pump/water`).then(
         res => {
           this.getStatus();
           this.watering = false;
+          this.loading = false;
         },
         err => {
           //

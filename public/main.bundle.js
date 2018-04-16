@@ -1948,6 +1948,9 @@ exports.default = {
 //
 //
 //
+//
+//
+//
 
 /***/ }),
 
@@ -2109,9 +2112,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   data: function data() {
     return {
+      loading: true,
       status: "unknown",
-      lastUpdated: null,
-      watering: false
+      lastUpdated: null
     };
   },
 
@@ -2122,6 +2125,7 @@ exports.default = {
       _axios2.default.get(_ENV2.default.SERVER.API + "/api/pump/status").then(function (res) {
         _this.status = res.data;
         _this.lastUpdated = new _moment2.default();
+        _this.loading = false;
       }, function (err) {
         //
       });
@@ -2129,10 +2133,11 @@ exports.default = {
     water: function water() {
       var _this2 = this;
 
-      this.watering = true;
+      this.loading = true;
       _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/water").then(function (res) {
         _this2.getStatus();
         _this2.watering = false;
+        _this2.loading = false;
       }, function (err) {
         //
       });
@@ -2168,6 +2173,7 @@ exports.default = {
     this.getStatus();
   }
 }; //
+//
 //
 //
 //
@@ -17136,7 +17142,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.card-body {\n  position: relative; }\n\n.loader {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  left: 0;\n  color: #777;\n  font-size: 2rem;\n  z-index: 5;\n  background-color: rgba(255, 255, 255, 0.8); }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
+exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.card-body {\n  position: relative; }\n\n.loader {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  left: 0;\n  color: #777;\n  font-size: 2rem;\n  z-index: 5;\n  background-color: rgba(255, 255, 255, 0.9); }\n  .loader-content {\n    text-align: center; }\n  .loader-text {\n    font-size: 1.3rem; }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
 
 // exports
 
@@ -35738,30 +35744,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "pump" }, [
-    _vm.watering
-      ? _c("div", { staticClass: "status mb-2" }, [
-          _vm._m(0),
+    _vm.loading
+      ? _c("div", { staticClass: "loader" }, [
+          _c("div", { staticClass: "loader-bg" }),
           _vm._v(" "),
-          _c("span", [_vm._v("watering in progress")])
+          _vm._m(0)
         ])
-      : _c("div", { staticClass: "status mb-2" }, [
-          _c(
-            "div",
-            {
-              staticClass: "status-icon",
-              class: { "status-icon--active": _vm.status === "on" }
-            },
-            [
-              _c("i", {
-                staticClass: "fas fa-power-off ui",
-                on: { click: _vm.togglePump }
-              }),
-              _c("br")
-            ]
-          ),
-          _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.status))])
-        ]),
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "status mb-2" }, [
+      _c(
+        "div",
+        {
+          staticClass: "status-icon",
+          class: { "status-icon--active": _vm.status === "on" }
+        },
+        [
+          _c("i", {
+            staticClass: "fas fa-power-off ui",
+            on: { click: _vm.togglePump }
+          }),
+          _c("br")
+        ]
+      ),
+      _vm._v(" "),
+      _c("span", [_vm._v(_vm._s(_vm.status))])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -35789,9 +35797,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "status-icon status--active" }, [
+    return _c("div", { staticClass: "loader-content" }, [
       _c("i", { staticClass: "fas fa-spinner fa-pulse" }),
-      _c("br")
+      _vm._v(" "),
+      _c("div", { staticClass: "loader-text" }, [_vm._v("please wait")])
     ])
   }
 ]
@@ -35872,7 +35881,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "loader-content" }, [
-      _c("i", { staticClass: "fas fa-spinner fa-pulse" })
+      _c("i", { staticClass: "fas fa-spinner fa-pulse" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "loader-text" }, [_vm._v("please wait")])
     ])
   },
   function() {

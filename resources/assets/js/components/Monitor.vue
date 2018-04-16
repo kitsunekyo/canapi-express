@@ -2,7 +2,10 @@
   <div class="monitor">
     <div class="loader" v-if="loading">
       <div class="loader-bg"></div>
-      <div class="loader-content"><i class="fas fa-spinner fa-pulse"></i></div>
+      <div class="loader-content">
+        <i class="fas fa-spinner fa-pulse"></i>
+        <div class="loader-text">please wait</div>
+      </div>
     </div>
     <div class="row mb-4">
       <div class="col">
