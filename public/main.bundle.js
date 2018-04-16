@@ -35637,7 +35637,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "site-content container" }, [
       _c("div", { staticClass: "row row-eq-height" }, [
-        _c("div", { staticClass: "col-8 mb-4" }, [
+        _c("div", { staticClass: "col-12 col-md-8 mb-4" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("\n            Plant Monitor\n          ")
@@ -35649,7 +35649,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-4 mb-4" }, [
+        _c("div", { staticClass: "col-12 col-md-4 mb-4" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("\n            WaterPump\n          ")
