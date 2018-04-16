@@ -71,6 +71,27 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./ENV.js":
+/*!****************!*\
+  !*** ./ENV.js ***!
+  \****************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  SERVER: {
+    HOST: 'http://localhost:8080',
+    API: 'http://localhost:8080',
+  },
+  DB: {
+    HOST: 'mongodb://localhost:27017/probes',
+    APP_PORT: 4000,
+  },
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -1856,46 +1877,11 @@ var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js
 
 var _moment2 = _interopRequireDefault(_moment);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _ENV = __webpack_require__(/*! ./../../../../ENV */ "./ENV.js");
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _ENV2 = _interopRequireDefault(_ENV);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   data: function data() {
@@ -1911,7 +1897,7 @@ exports.default = {
       var _this = this;
 
       this.loading = true;
-      _axios2.default.get("http://localhost:8080/api/status").then(function (response) {
+      _axios2.default.get(_ENV2.default.SERVER.API + "/api/status").then(function (response) {
         _this.status = response.data;
         _this.lastUpdated = new _moment2.default();
         _this.loading = false;
@@ -1921,7 +1907,44 @@ exports.default = {
   mounted: function mounted() {
     this.getStatus();
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 
@@ -1943,17 +1966,15 @@ var _chart = __webpack_require__(/*! ./../../../../node_modules/chart.js */ "./n
 
 var _chart2 = _interopRequireDefault(_chart);
 
+var _ENV = __webpack_require__(/*! ./../../../../ENV */ "./ENV.js");
+
+var _ENV2 = _interopRequireDefault(_ENV);
+
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
 
 exports.default = {
   data: function data() {
@@ -2004,7 +2025,7 @@ exports.default = {
           }]
         }
       };
-      _axios2.default.get("http://localhost:8080/api/probes").then(function (response) {
+      _axios2.default.get(_ENV2.default.SERVER.API + "/api/probes").then(function (response) {
         _this.humidityData = response.data.map(function (v, i) {
           return {
             x: new Date(v.timestamp),
@@ -2046,7 +2067,11 @@ exports.default = {
   mounted: function mounted() {
     this.getProbes();
   }
-};
+}; //
+//
+//
+//
+//
 
 /***/ }),
 
@@ -2072,27 +2097,11 @@ var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js
 
 var _moment2 = _interopRequireDefault(_moment);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _ENV = __webpack_require__(/*! ./../../../../ENV */ "./ENV.js");
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _ENV2 = _interopRequireDefault(_ENV);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   data: function data() {
@@ -2107,7 +2116,7 @@ exports.default = {
     getStatus: function getStatus() {
       var _this = this;
 
-      _axios2.default.get("http://localhost:8080/api/pump/status").then(function (res) {
+      _axios2.default.get(_ENV2.default.SERVER.API + "/api/pump/status").then(function (res) {
         _this.status = res.data;
         _this.lastUpdated = new _moment2.default();
       }, function (err) {
@@ -2118,7 +2127,7 @@ exports.default = {
       var _this2 = this;
 
       this.watering = true;
-      _axios2.default.post("http://localhost:8080/api/pump/water").then(function (res) {
+      _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/water").then(function (res) {
         _this2.getStatus();
         _this2.watering = false;
       }, function (err) {
@@ -2136,7 +2145,7 @@ exports.default = {
     pumpOn: function pumpOn() {
       var _this3 = this;
 
-      _axios2.default.post("http://localhost:8080/api/pump/on").then(function (res) {
+      _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/on").then(function (res) {
         _this3.status = "on";
       }, function (err) {
         //
@@ -2145,7 +2154,7 @@ exports.default = {
     pumpOff: function pumpOff() {
       var _this4 = this;
 
-      _axios2.default.post("http://localhost:8080/api/pump/off").then(function (res) {
+      _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/off").then(function (res) {
         _this4.status = "off";
       }, function (err) {
         //
@@ -2155,7 +2164,25 @@ exports.default = {
   mounted: function mounted() {
     this.getStatus();
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 

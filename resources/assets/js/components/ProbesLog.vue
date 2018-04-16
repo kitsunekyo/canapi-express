@@ -5,6 +5,7 @@
 </template>
 <script>
 import Chart from "./../../../../node_modules/chart.js";
+import ENV from './../../../../ENV';
 import axios from "axios";
 
 export default {
@@ -57,7 +58,7 @@ export default {
           ]
         }
       };
-      axios.get(`http://localhost:8080/api/probes`).then(
+      axios.get(`${ENV.SERVER.API}/api/probes`).then(
         response => {
           this.humidityData = response.data.map((v, i) => {
             return {

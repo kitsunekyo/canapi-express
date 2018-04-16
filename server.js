@@ -7,9 +7,10 @@ const createError = require('http-errors');
 const debug = require('debug')('canapi-express:server');
 const http = require('http');
 const cookieParser = require('cookie-parser');
-const config = require('./app/config');
 
 const apiRouter = require('./app/routes/api');
+
+const ENV = require('./ENV');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,7 +28,7 @@ app.set('view engine', 'pug');
 app.use(cookieParser());
 
 // Connect to database
-mongoose.connect(config.DB)
+mongoose.connect(ENV.DB.HOST);
 
 // Routes
 app.use('/api', apiRouter);

@@ -20,6 +20,7 @@
 <script>
 import axios from "axios";
 import moment from "moment";
+import ENV from './../../../../ENV';
 
 export default {
   data() {
@@ -31,7 +32,7 @@ export default {
   },
   methods: {
     getStatus() {
-      axios.get(`http://localhost:8080/api/pump/status`).then(
+      axios.get(`${ENV.SERVER.API}/api/pump/status`).then(
         res => {
           this.status = res.data;
           this.lastUpdated = new moment();
@@ -43,7 +44,7 @@ export default {
     },
     water() {
       this.watering = true;
-      axios.post(`http://localhost:8080/api/pump/water`).then(
+      axios.post(`${ENV.SERVER.API}/api/pump/water`).then(
         res => {
           this.getStatus();
           this.watering = false;
@@ -62,7 +63,7 @@ export default {
       }
     },
     pumpOn() {
-      axios.post(`http://localhost:8080/api/pump/on`).then(
+      axios.post(`${ENV.SERVER.API}/api/pump/on`).then(
         res => {
           this.status = "on";
         },
@@ -72,7 +73,7 @@ export default {
       );
     },
     pumpOff() {
-      axios.post(`http://localhost:8080/api/pump/off`).then(
+      axios.post(`${ENV.SERVER.API}/api/pump/off`).then(
         res => {
           this.status = "off";
         },
