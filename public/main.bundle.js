@@ -2108,6 +2108,10 @@ exports.default = {
   },
 
   methods: {
+    handleGetStatusClick: function handleGetStatusClick() {
+      if (this.loading) return;
+      this.getStatus();
+    },
     getStatus: function getStatus() {
       var _this = this;
 
@@ -2122,6 +2126,7 @@ exports.default = {
     water: function water() {
       var _this2 = this;
 
+      if (this.loading) return;
       this.loading = true;
       _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/water").then(function (res) {
         try {
@@ -2137,7 +2142,7 @@ exports.default = {
       });
     },
     togglePump: function togglePump() {
-      console.log("toggle");
+      if (this.loading) return;
       if (this.status === "off") {
         this.pumpOn();
       } else {
@@ -2147,6 +2152,7 @@ exports.default = {
     pumpOn: function pumpOn() {
       var _this3 = this;
 
+      if (this.loading) return;
       _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/on").then(function (res) {
         _this3.status = "on";
       }, function (err) {
@@ -2156,6 +2162,7 @@ exports.default = {
     pumpOff: function pumpOff() {
       var _this4 = this;
 
+      if (this.loading) return;
       _axios2.default.post(_ENV2.default.SERVER.API + "/api/pump/off").then(function (res) {
         _this4.status = "off";
       }, function (err) {
@@ -35755,7 +35762,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "btn btn-info btn-xs", on: { click: _vm.getStatus } },
+      {
+        staticClass: "btn btn-info btn-xs",
+        on: { click: _vm.handleGetStatusClick }
+      },
       [_c("i", { staticClass: "fas fa-sync-alt" }), _vm._v(" Refresh")]
     ),
     _vm._v(" "),

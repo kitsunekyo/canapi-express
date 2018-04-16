@@ -13,7 +13,7 @@
       </div>
       <span>{{ status }}</span>
     </div>
-    <div class="btn btn-info btn-xs" @click="getStatus"><i class="fas fa-sync-alt"></i> Refresh</div>
+    <div class="btn btn-info btn-xs" @click="handleGetStatusClick"><i class="fas fa-sync-alt"></i> Refresh</div>
     <div class="btn btn-warning btn-xs" @click="water"><i class="fas fa-tint"></i> Water Manually</div>
     <div class="updated" v-if="lastUpdated !== null">Last Updated <br />{{ lastUpdated.format('HH:mm:ss - DD/MM/YY') }}</div>
   </div>
@@ -32,6 +32,10 @@ export default {
     };
   },
   methods: {
+    handleGetStatusClick() {
+      if (this.loading) return;
+      this.getStatus();
+    },
     getStatus() {
       axios.get(`${ENV.SERVER.API}/api/pump/status`).then(
         res => {
@@ -45,6 +49,7 @@ export default {
       );
     },
     water() {
+      if (this.loading) return;
       this.loading = true;
       axios.post(`${ENV.SERVER.API}/api/pump/water`).then(
         res => {
@@ -63,7 +68,7 @@ export default {
       );
     },
     togglePump() {
-      console.log("toggle");
+      if (this.loading) return;
       if (this.status === "off") {
         this.pumpOn();
       } else {
@@ -71,6 +76,7 @@ export default {
       }
     },
     pumpOn() {
+      if (this.loading) return;
       axios.post(`${ENV.SERVER.API}/api/pump/on`).then(
         res => {
           this.status = "on";
@@ -81,6 +87,7 @@ export default {
       );
     },
     pumpOff() {
+      if (this.loading) return;
       axios.post(`${ENV.SERVER.API}/api/pump/off`).then(
         res => {
           this.status = "off";
