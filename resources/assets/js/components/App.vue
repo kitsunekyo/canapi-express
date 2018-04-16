@@ -36,18 +36,6 @@
             </div>
           </div>
         </div>
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              History
-            </div>
-            <div class="card-body">
-              <p class="card-text">
-                <probes-log></probes-log>
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

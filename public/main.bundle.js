@@ -1840,18 +1840,6 @@ exports.default = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /***/ }),
 
@@ -17142,7 +17130,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.card-body {\n  position: relative; }\n\n.loader {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  left: 0;\n  color: #777;\n  font-size: 2rem;\n  z-index: 5;\n  background-color: rgba(255, 255, 255, 0.9); }\n  .loader-content {\n    text-align: center; }\n  .loader-text {\n    font-size: 1.3rem; }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
+exports.push([module.i, "body {\n  background: #2f3f43;\n  color: #444; }\n\n.navbar {\n  border-bottom: 10px solid #9ecc54; }\n\n.navbar-logo {\n  color: #9ecc54; }\n\n.card {\n  height: 100%; }\n\n.card-body {\n  position: relative; }\n\n.loader {\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  width: 100%;\n  top: 0;\n  left: 0;\n  color: #777;\n  font-size: 2rem;\n  z-index: 5;\n  background-color: rgba(255, 255, 255, 0.9); }\n  .loader-content {\n    text-align: center; }\n  .loader-text {\n    font-size: 1rem; }\n\n.btn-xs {\n  padding: .25rem .5rem;\n  font-size: .7rem;\n  line-height: 1.2;\n  border-radius: .2rem; }\n\n.ui {\n  cursor: pointer; }\n\n.site-content {\n  padding-top: 1rem;\n  margin-bottom: 5rem; }\n", ""]);
 
 // exports
 
@@ -35656,18 +35644,6 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("p", { staticClass: "card-text" }, [_c("pump")], 1)
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("\n            History\n          ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("p", { staticClass: "card-text" }, [_c("probes-log")], 1)
             ])
           ])
         ])
