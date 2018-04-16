@@ -24,14 +24,15 @@ PumpFactory.prototype.off = function () {
   });
 
 };
-PumpFactory.prototype.runFor = function (duration) {
+PumpFactory.prototype.runFor = function (duration = 5000) {
   return new Promise((resolve, reject) => {
     this.off(); // shut off first
     this.on();
-    setTimeout(this.off(), 1500);
+    setTimeout(() => {
+      this.off();
+    }, duration);
     resolve();
   });
-
 };
 PumpFactory.prototype.getState = function () {
   return new Promise((resolve, reject) => {
