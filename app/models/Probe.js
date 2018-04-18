@@ -7,8 +7,11 @@ const probe = new mongoose.Schema({
   air_humidity: {
     type: Number,
   },
-  is_soil_dry: {
-    type: Boolean
+  soil_status: {
+    type: String
+  },
+  soil_raw_data: {
+    type: Number
   },
   timestamp: {
     type: Date

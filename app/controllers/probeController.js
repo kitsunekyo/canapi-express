@@ -10,10 +10,12 @@ const probeController = {
     });
   },
   add: function (req, res, next) {
+      console.log(req.body);
     Probe.create({
       air_temperature: req.body.air_temperature,
       air_humidity: req.body.air_humidity,
-      is_soil_dry: req.body.is_soil_dry,
+      soil_raw_data: req.body.soil_raw_data,
+      soil_status: req.body.soil_status,
       timestamp: new Date(),
     }, (error, probe) => {
       if (error) {

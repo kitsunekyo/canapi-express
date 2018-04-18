@@ -36,27 +36,37 @@
             </div>
           </div>
         </div>
+        <div class="col-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              Grow Space History
+            </div>
+            <div class="card-body">
+              <div class="card-text">
+                <probes-log></probes-log>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import probesLog from './ProbesLog.vue';
-import monitor from './Monitor.vue';
-import pump from './Pump.vue';
+import probesLog from "./ProbesLog.vue";
+import monitor from "./Monitor.vue";
+import pump from "./Pump.vue";
 
 export default {
   data: function() {
-    return {
-    };
+    return {};
   },
   components: {
     probesLog,
     monitor,
     pump,
   },
-  mounted: function() {
-  }
+  mounted: function() {}
 };
 </script>
 <style lang="scss">

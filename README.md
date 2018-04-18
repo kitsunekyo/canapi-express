@@ -22,10 +22,13 @@ Hardware:
 In order to speed up the development, we set our project up on both the Raspberry Pi and our development machine. They are mostly the same but we have to mock the functionality to acces GPIO ports on our dev machine, since this is Raspberry only.
 
 Software:
-- nginx
-- MongoDB 4.x
-- NodeJS LTS
-- Python 2.4
+- [MongoDB](https://www.mongodb.com/download-center#community)
+- [NodeJS LTS](https://nodejs.org/en/)
+- [Python 2.7.14](https://www.python.org/downloads/)
+- [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
+- [vs2017 build tools](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15)
+
+on raspberry pi you'll need `"mongoose": "^4.0.14",` in your package.json
 
 Stack:
 - Backend: NodeJS running ExpressJS, Mongoose

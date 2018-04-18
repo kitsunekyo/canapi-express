@@ -85,11 +85,10 @@ module.exports = {
     API: 'http://localhost:8080',
   },
   DB: {
-    HOST: 'mongodb://localhost:27017/probes',
+    HOST: 'mongodb://localhost:27017',
     APP_PORT: 4000,
   },
 };
-
 
 /***/ }),
 
@@ -1841,6 +1840,18 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 
@@ -1878,7 +1889,9 @@ exports.default = {
       loading: true,
       status: {
         air_temperature: 0,
-        air_humidity: 0
+        air_humidity: 0,
+        soil_raw_data: 0,
+        soil_status: '?'
       },
       lastUpdated: (0, _moment2.default)()
     };
@@ -1975,7 +1988,8 @@ exports.default = {
   data: function data() {
     return {
       humidityData: null,
-      temperatureData: null
+      temperatureData: null,
+      soilData: null
     };
   },
 
@@ -1983,43 +1997,6 @@ exports.default = {
     getProbes: function getProbes() {
       var _this = this;
 
-      var chartOptions = {
-        responsive: true,
-        title: {
-          display: true,
-          text: "Air Quality"
-        },
-        tooltips: {
-          mode: "index",
-          intersect: false
-        },
-        hover: {
-          mode: "nearest",
-          intersect: true
-        },
-
-        scales: {
-          xAxes: [{
-            time: {
-              min: new Date("2018-03-14"),
-              max: new Date("2018-04-14")
-            },
-            type: "time",
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: "Date"
-            }
-          }],
-          yAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: "°C"
-            }
-          }]
-        }
-      };
       _axios2.default.get(_ENV2.default.SERVER.API + "/api/probes").then(function (response) {
         _this.humidityData = response.data.map(function (v, i) {
           return {
@@ -2033,29 +2010,161 @@ exports.default = {
             y: v.air_temperature
           };
         });
-        _this.chart = new _chart2.default(_this.$refs.chart, {
-          type: "line",
-          data: {
-            datasets: [{
-              label: "Humidity",
-              borderColor: "#48c5db",
-              data: _this.humidityData.sort(function (a, b) {
-                return a.x - b.x;
-              }),
-              lineTension: 0
-            }, {
-              label: "Temperature",
-              borderColor: "#8be5f4",
-              data: _this.temperatureData.sort(function (a, b) {
-                return a.x - b.x;
-              }),
-              lineTension: 0
-            }]
-          },
-          options: chartOptions
+        _this.soilData = response.data.map(function (v, i) {
+          return {
+            x: new Date(v.timestamp),
+            y: v.soil_status
+          };
         });
+        _this.init_chart_air_temperature();
+        _this.init_chart_air_humidity();
+        _this.init_chart_soil_status();
       }, function (err) {
         console.log(err);
+      });
+    },
+    init_chart_air_temperature: function init_chart_air_temperature() {
+      this.chart = new _chart2.default(this.$refs.air_temperature_chart, {
+        type: "line",
+        data: {
+          datasets: [{
+            label: "Temperature",
+            borderColor: "#48c5db",
+            data: this.temperatureData.sort(function (a, b) {
+              return a.x - b.x;
+            }),
+            lineTension: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: "Air Temperature"
+          },
+          tooltips: {
+            mode: "index",
+            intersect: false
+          },
+          hover: {
+            mode: "nearest",
+            intersect: true
+          },
+          scales: {
+            xAxes: [{
+              time: {},
+              type: "time",
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Date"
+              }
+            }],
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "°C"
+              }
+            }]
+          }
+        }
+      });
+    },
+    init_chart_air_humidity: function init_chart_air_humidity() {
+      this.chart = new _chart2.default(this.$refs.air_humidity_chart, {
+        type: "line",
+        data: {
+          datasets: [{
+            label: "Humidity",
+            borderColor: "#48c5db",
+            data: this.humidityData.sort(function (a, b) {
+              return a.x - b.x;
+            }),
+            lineTension: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: "Air Humidity"
+          },
+          tooltips: {
+            mode: "index",
+            intersect: false
+          },
+          hover: {
+            mode: "nearest",
+            intersect: true
+          },
+          scales: {
+            xAxes: [{
+              time: {},
+              type: "time",
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Date"
+              }
+            }],
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "%"
+              }
+            }]
+          }
+        }
+      });
+    },
+    init_chart_soil_status: function init_chart_soil_status() {
+      this.chart = new _chart2.default(this.$refs.soil_chart, {
+        type: "line",
+        data: {
+          datasets: [{
+            label: "Dry / Wet",
+            borderColor: "#48c5db",
+            data: this.humidityData.sort(function (a, b) {
+              return a.x - b.x;
+            }),
+            lineTension: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: "Soil Status"
+          },
+          tooltips: {
+            mode: "index",
+            intersect: false
+          },
+          hover: {
+            mode: "nearest",
+            intersect: true
+          },
+          scales: {
+            xAxes: [{
+              time: {},
+              type: "time",
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Date"
+              }
+            }],
+            yAxes: [{
+              display: false,
+              scaleLabel: {
+                display: true,
+                labelString: "%"
+              }
+            }]
+          }
+        }
       });
     }
   },
@@ -2063,6 +2172,16 @@ exports.default = {
     this.getProbes();
   }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17181,7 +17300,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.updated {\n  font-size: 0.8rem;\n  color: #b1b1b1;\n  font-style: italic;\n  margin-top: 1rem;\n}\n.monitor-item__content {\n  line-height: 1;\n  font-size: 2.5rem;\n  color: #9ecc54;\n  font-weight: 700;\n}\n.col:not(:last-child) > .monitor-item {\n  border-right: solid 1px #e2e2e2;\n}\n", ""]);
+exports.push([module.i, "\n.updated {\n  font-size: 0.8rem;\n  color: #b1b1b1;\n  font-style: italic;\n  margin-top: 1rem;\n}\n.monitor-item {\n  margin-bottom: 1rem;\n}\n.monitor-item__content {\n  line-height: 1;\n  font-size: 2.5rem;\n  color: #9ecc54;\n  font-weight: 700;\n}\n.col:not(:last-child) > .monitor-item {\n  border-right: solid 1px #e2e2e2;\n}\n", ""]);
 
 // exports
 
@@ -35659,6 +35778,18 @@ var render = function() {
               _c("p", { staticClass: "card-text" }, [_c("pump")], 1)
             ])
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 mb-4" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("\n            Grow Space History\n          ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "card-text" }, [_c("probes-log")], 1)
+            ])
+          ])
         ])
       ])
     ])
@@ -35707,7 +35838,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "probes-log" }, [
-    _c("canvas", { ref: "chart", attrs: { width: "400", height: "200" } })
+    _c("div", { staticClass: "row row-eq-height" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("canvas", {
+          ref: "air_temperature_chart",
+          attrs: { width: "400", height: "200" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12" }, [
+        _c("canvas", {
+          ref: "air_humidity_chart",
+          attrs: { width: "400", height: "200" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12" }, [
+        _c("canvas", {
+          ref: "soil_chart",
+          attrs: { width: "400", height: "200" }
+        })
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -35827,7 +35979,7 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "row mb-4" }, [
-      _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "col-12 col-lg-4" }, [
         _c("div", { staticClass: "monitor-item" }, [
           _vm._m(1),
           _vm._v(" "),
@@ -35837,7 +35989,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "col-12 col-lg-4" }, [
         _c("div", { staticClass: "monitor-item" }, [
           _vm._m(2),
           _vm._v(" "),
@@ -35847,7 +35999,15 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c("div", { staticClass: "col-12 col-lg-4" }, [
+        _c("div", { staticClass: "monitor-item" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "monitor-item__content" }, [
+            _vm._v(_vm._s(_vm.status.soil_status))
+          ])
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -35900,15 +36060,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "monitor-item" }, [
-        _c("div", { staticClass: "monitor-item__title" }, [
-          _c("i", { staticClass: "fas fa-tint" }),
-          _vm._v(" Soil")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "monitor-item__content" }, [_vm._v("Wet")])
-      ])
+    return _c("div", { staticClass: "monitor-item__title" }, [
+      _c("i", { staticClass: "fas fa-tint" }),
+      _vm._v(" Soil")
     ])
   }
 ]

@@ -8,25 +8,25 @@
       </div>
     </div>
     <div class="row mb-4">
-      <div class="col">
+      <div class="col-12 col-lg-4">
         <div class="monitor-item">
           <div class="monitor-item__title">
             <i class="fas fa-thermometer"></i> Temperature</div>
           <div class="monitor-item__content">{{ status.air_temperature }}°C</div>
         </div>
       </div>
-      <div class="col">
+      <div class="col-12 col-lg-4">
         <div class="monitor-item">
           <div class="monitor-item__title">
             <i class="fas fa-cloud"></i> Humidity</div>
           <div class="monitor-item__content">{{ status.air_humidity }}%</div>
         </div>
       </div>
-      <div class="col">
+      <div class="col-12 col-lg-4">
         <div class="monitor-item">
           <div class="monitor-item__title">
             <i class="fas fa-tint"></i> Soil</div>
-          <div class="monitor-item__content">Wet</div>
+          <div class="monitor-item__content">{{ status.soil_status }}</div>
         </div>
       </div>
     </div>
@@ -52,6 +52,8 @@ export default {
       status: {
         air_temperature: 0,
         air_humidity: 0,
+        soil_raw_data: 0,
+        soil_status: '?',
       },
       lastUpdated: moment(),
     };
@@ -77,6 +79,9 @@ export default {
   color: #b1b1b1;
   font-style: italic;
   margin-top: 1rem;
+}
+.monitor-item {
+    margin-bottom: 1rem;
 }
 .monitor-item__content {
   line-height: 1;
