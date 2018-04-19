@@ -43,7 +43,7 @@
 import axios from "axios";
 import moment from "moment";
 
-import ENV from './../../../../ENV';
+import CONFIG from './../../../../env.config';
 
 export default {
   data() {
@@ -61,7 +61,7 @@ export default {
   methods: {
     getStatus() {
       this.loading = true;
-      axios.get(`${ENV.SERVER.API}/api/status`).then(response => {
+      axios.get(`${CONFIG.SERVER.API}/api/status`).then(response => {
         this.status = response.data;
         this.lastUpdated = new moment();
         this.loading = false;

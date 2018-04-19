@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  div.row.row-eq-height
+    div.col-12
+      .card
+        .card-header Registration
+          .card-text
+            form(action="/registration", method="POST")
+              div.form-group
+                label(for="email") Email address
+                input(type="email", name="email", aria-describedby="emailHelp", placeholder="Enter email").form-control#email
+              div.form-group
+                label(for="password") Password
+                input(type="password", name="password", placeholder="Password").form-control#password
+              button(type="submit").btn.btn-primary Register

@@ -1,6 +1,6 @@
-const ENV = require('./../../ENV');
+const CONFIG = require('./../../env.config');
 
-const PumpFactory = ENV.PI ? require('./../lib/pump') : require('./../mocks/lib/pump');
+const PumpFactory = CONFIG.PI ? require('./../lib/pump') : require('./../mocks/lib/pump');
 const pump = new PumpFactory(27);
 
 const pumpController = {

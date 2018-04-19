@@ -7,19 +7,34 @@ const createError = require('http-errors');
 const debug = require('debug')('canapi-express:server');
 const http = require('http');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const apiRouter = require('./app/routes/api');
+const webRouter = require('./app/routes/web');
 
-const ENV = require('./ENV');
+const CONFIG = require('./env.config');
 
 app.use(logger('dev'));
+
+// no clue?
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
 
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 var port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
+
+//use sessions for tracking logins
+app.use(session({
+  secret: 'oachkatzlschwoaf',
+  resave: true,
+  saveUninitialized: false
+}));
 
 // View Engine Config
 app.set('views', path.join(__dirname, 'app/views'));
@@ -28,16 +43,16 @@ app.set('view engine', 'pug');
 app.use(cookieParser());
 
 // Connect to database
-mongoose.connect(ENV.DB.HOST);
+mongoose.connect(CONFIG.DB.HOST);
+
 
 // Routes
 app.use('/api', apiRouter);
-app.get('/', function (req, res, next) {
-  res.sendfile('./public/index.html')
-})
+app.use('/', webRouter);
 
 // Static Middleware
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Access Control Middleware
 app.use(function (req, res, next) {

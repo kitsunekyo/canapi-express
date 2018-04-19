@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import './../scss/styles.scss';
 
-import App from './components/App.vue';
+import Dashboard from './components/Dashboard.vue';
 import store from './store';
 
 Vue.config.devtools = true;
@@ -12,7 +12,7 @@ const vueApp = new Vue({
     test: null,
   },
   components: {
-    App,
+    Dashboard,
   },
   computed: {},
   methods: {},

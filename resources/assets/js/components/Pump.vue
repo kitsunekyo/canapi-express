@@ -21,7 +21,7 @@
 <script>
 import axios from "axios";
 import moment from "moment";
-import ENV from './../../../../ENV';
+import CONFIG from './../../../../env.config';
 
 export default {
   data() {
@@ -37,7 +37,7 @@ export default {
       this.getStatus();
     },
     getStatus() {
-      axios.get(`${ENV.SERVER.API}/api/pump/status`).then(
+      axios.get(`${CONFIG.SERVER.API}/api/pump/status`).then(
         res => {
           this.status = res.data;
           this.lastUpdated = new moment();
@@ -51,7 +51,7 @@ export default {
     water() {
       if (this.loading) return;
       this.loading = true;
-      axios.post(`${ENV.SERVER.API}/api/pump/water`).then(
+      axios.post(`${CONFIG.SERVER.API}/api/pump/water`).then(
         res => {
           try {
             setTimeout(()=>{
@@ -77,7 +77,7 @@ export default {
     },
     pumpOn() {
       if (this.loading) return;
-      axios.post(`${ENV.SERVER.API}/api/pump/on`).then(
+      axios.post(`${CONFIG.SERVER.API}/api/pump/on`).then(
         res => {
           this.status = "on";
         },
@@ -88,7 +88,7 @@ export default {
     },
     pumpOff() {
       if (this.loading) return;
-      axios.post(`${ENV.SERVER.API}/api/pump/off`).then(
+      axios.post(`${CONFIG.SERVER.API}/api/pump/off`).then(
         res => {
           this.status = "off";
         },
