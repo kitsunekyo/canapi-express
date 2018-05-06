@@ -4,10 +4,14 @@ const router = express.Router();
 const probeController = require('./../controllers/probeController');
 const piController = require('./../controllers/piController');
 const pumpController = require('./../controllers/pumpController');
+const eventController = require('./../controllers/eventController');
 
 router.get('/probes/', probeController.index);
 router.post('/probes/', probeController.add);
 router.post('/probes/mock', probeController.mock);
+
+router.get('/event/', eventController.index);
+router.post('/event/', eventController.add);
 
 router.get('/pump/status', pumpController.getPumpStatus);
 router.post('/pump/on', pumpController.startPump);

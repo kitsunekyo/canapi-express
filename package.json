@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server.js",
+    "dev": "webpack-dev-server && nodemon ./server.js",
     "fe:watch": "webpack --watch --progress --config webpack.config.js",
     "fe:build": "webpack --env.production --config webpack.prod.js"
   },
