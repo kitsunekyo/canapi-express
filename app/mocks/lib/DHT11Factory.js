@@ -1,3 +1,4 @@
+console.log('MOCK');
 // mock
 function DHT11Factory() {
   return this;

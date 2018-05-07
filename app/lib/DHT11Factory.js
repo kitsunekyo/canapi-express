@@ -1,5 +1,7 @@
 const PythonShell = require('python-shell');
 
+console.log('LIB');
+
 function DHT11Factory() {
   return this;
 };
