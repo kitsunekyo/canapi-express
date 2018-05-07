@@ -13,7 +13,7 @@ const session = require('express-session');
 const apiRouter = require('./app/routes/api');
 const webRouter = require('./app/routes/web');
 
-const CONFIG = require('./env.config');
+require('dotenv').config();
 
 app.use(logger('dev'));
 
@@ -43,7 +43,7 @@ app.set('view engine', 'pug');
 app.use(cookieParser());
 
 // Connect to database
-mongoose.connect(CONFIG.DB.HOST);
+mongoose.connect(process.env.DB_HOST);
 
 
 // Routes

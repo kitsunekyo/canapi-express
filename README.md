@@ -2,7 +2,7 @@
   <br>
   <a href="https://www.dasblattwerk.at"><img src="docs/assets/plant.png" alt="Plant" width="200"></a>
   <br>
-  CannaPi Express
+  Leafy Pi - Garden Controller
   <br>
 </h1>
 
