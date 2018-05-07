@@ -1,27 +1,35 @@
 // mock
+
+const EventService = require("./../../lib/EventService");
+
 function PumpFactory(pin) {
   try {
     this.gpio = 1;
     this.status = this.gpio;
   } catch (e) {
-    console.log('couldnt attach to GPIO pin #' + pin);
+    console.log("couldnt attach to GPIO pin #" + pin);
   }
   return this;
-};
-PumpFactory.prototype.on = function () {
+}
+PumpFactory.prototype.on = function() {
   return new Promise((resolve, reject) => {
     this.gpio = 0;
     resolve();
   });
 };
-PumpFactory.prototype.off = function () {
+PumpFactory.prototype.off = function() {
   return new Promise((resolve, reject) => {
     this.gpio = 1;
     resolve();
   });
 };
-PumpFactory.prototype.runFor = function (duration = 5000) {
+PumpFactory.prototype.runFor = function(duration = 5000) {
   return new Promise((resolve, reject) => {
+    EventService.create({
+      level: 'info',
+      event: 'watered',
+      note: `for ${duration} milliseconds`
+    });
     this.off(); // shut off first
     this.on();
     setTimeout(() => {
@@ -30,7 +38,7 @@ PumpFactory.prototype.runFor = function (duration = 5000) {
     resolve();
   });
 };
-PumpFactory.prototype.getState = function () {
+PumpFactory.prototype.getState = function() {
   return new Promise((resolve, reject) => {
     const pinState = this.gpio;
     let status = "unknown";

@@ -11,12 +11,12 @@ class Dashboard extends React.Component {
             <Monitor />
           </div>
           <div className="column">
-            <EventLog />
+            <Pump />
           </div>
         </div>
         <div className="columns">
-          <div className="column is-narrow">
-            <Pump />
+          <div className="column">
+            <EventLog />
           </div>
         </div>
       </div>

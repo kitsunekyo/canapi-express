@@ -39,7 +39,7 @@ class Monitor extends React.Component {
     this.fetchMonitor();
   }
   fetchMonitor() {
-    axios.get(`http://localhost:8080/api/status`).then(res => {
+    axios.get(`${ process.env.API_HOST }/status`).then(res => {
       this.setState({
         status: res.data,
         loading: false
@@ -52,10 +52,8 @@ class Monitor extends React.Component {
       this.setState({
         loading: true
       });
-      console.log("reload");
       this.fetchMonitor();
     } else {
-      console.log("nope");
     }
   }
   render() {
@@ -112,7 +110,6 @@ class Monitor extends React.Component {
             </div>
           </div>
         </div>
-        <footer className="card-footer" />
       </div>
     );
   }

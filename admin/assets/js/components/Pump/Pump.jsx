@@ -22,7 +22,7 @@ class Pump extends React.Component {
     this.setState({
       watering: true
     });
-    axios.post(`http://localhost:8080/api/pump/water`).then(res => {
+    axios.post(`${ process.env.API_HOST }/pump/water`).then(res => {
       this.runProgress()
         .then(() => {
           this.setState({
@@ -51,7 +51,7 @@ class Pump extends React.Component {
     });
   }
   stopPump() {
-    axios.post(`http://localhost:8080/api/pump/off`).then(res => {
+    axios.post(`${ process.env.API_HOST }/pump/off`).then(res => {
       this.setState({
         watering: false
       });
@@ -70,7 +70,7 @@ class Pump extends React.Component {
         </header>
         <div className="card-content">
           <div className="content">
-            <h1>pump status</h1>
+            <img src="/img/tap.svg" alt=""/>
             {this.state.watering ? (
               <div>
                 <span>watering is in progress...</span>
