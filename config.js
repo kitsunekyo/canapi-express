@@ -1,5 +1,5 @@
 const CONFIG = {
-  PI: false,
+  PI: true,
 };
 
 module.exports = CONFIG;
