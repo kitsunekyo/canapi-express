@@ -281,7 +281,7 @@ var EventLog = function (_React$Component) {
       var eventItems = this.state.events.map(function (event) {
         return React.createElement(
           "tr",
-          { key: "{event._id}" },
+          { key: event._id },
           React.createElement(
             "td",
             null,

@@ -20,7 +20,7 @@ class EventLog extends React.Component {
   render() {
     const eventItems = this.state.events.map(event => {
       return (
-        <tr key="{event._id}">
+        <tr key={event._id}>
           <td>{ event.level }</td>
           <td>{ event.event }</td>
           <td>{ event.note }</td>

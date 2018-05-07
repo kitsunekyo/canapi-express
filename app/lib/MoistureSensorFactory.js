@@ -1,12 +1,13 @@
-// mock
-const moistureSensorFactory = (pin) => {
-  const gpio = 1;
+const Gpio = require('onoff').Gpio;
+
+const MoistureSensorFactory = (pin) => {
+  const gpio = new Gpio(pin, 'in');
   return {
     gpio,
     read: () => {
       return new Promise((resolve, reject) => {
         try {
-          const read = gpio;
+          const read = gpio.readSync();
           const readable = (read === 1) ? 'dry' : 'wet';
           resolve({
             'soil_raw_data': read,
@@ -19,4 +20,4 @@ const moistureSensorFactory = (pin) => {
     }
   };
 }
-module.exports = moistureSensorFactory;
+module.exports = MoistureSensorFactory;

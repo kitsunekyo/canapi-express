@@ -1,4 +1,5 @@
 const Event = require('./../models/Event');
+const EventService = require('./../lib/EventService');
 
 const eventController = {
   index: function (req, res, next) {
@@ -10,16 +11,10 @@ const eventController = {
     });
   },
   add: function (req, res, next) {
-    Event.create({
-      level: req.body.level,
-      event: req.body.event,
-      note: req.body.note,
-      timestamp: new Date(),
-    }, (error, probe) => {
-      if (error) {
-        res.status(400).send('Unable to create Probe');
-      }
+    EventService.create(req.body).then((probe) => {
       res.status(200).json(probe);
+    }, (err) => {
+      res.status(400).send(err);
     });
   },
 };

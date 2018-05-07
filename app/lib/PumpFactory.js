@@ -1,5 +1,7 @@
 const Gpio = require('onoff').Gpio;
 
+const EventService = require('./EventService');
+
 function PumpFactory(pin) {
   try {
     this.gpio = new Gpio(pin, 'out');
@@ -26,6 +28,11 @@ PumpFactory.prototype.off = function () {
 };
 PumpFactory.prototype.runFor = function (duration = 5000) {
   return new Promise((resolve, reject) => {
+    EventService.create({
+      level: 'info',
+      event: 'watered',
+      note: `for ${duration} milliseconds`
+    });
     this.off(); // shut off first
     this.on();
     setTimeout(() => {
