@@ -87,10 +87,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Header = __webpack_require__(/*! ./../Header/Header.jsx */ "./admin/assets/js/components/Header/Header.jsx");
-
-var _Header2 = _interopRequireDefault(_Header);
-
 var _Dashboard = __webpack_require__(/*! ./../Dashboard/Dashboard.jsx */ "./admin/assets/js/components/Dashboard/Dashboard.jsx");
 
 var _Dashboard2 = _interopRequireDefault(_Dashboard);
@@ -117,16 +113,11 @@ var App = function (_React$Component) {
     value: function render() {
       return React.createElement(
         "div",
-        { className: "app-wrapper" },
-        React.createElement(_Header2.default, null),
+        { className: "site-content" },
         React.createElement(
           "div",
-          { className: "site-content" },
-          React.createElement(
-            "div",
-            { className: "container" },
-            React.createElement(_Dashboard2.default, null)
-          )
+          { className: "container" },
+          React.createElement(_Dashboard2.default, null)
         )
       );
     }
@@ -879,11 +870,17 @@ var _App = __webpack_require__(/*! ./components/App/App.jsx */ "./admin/assets/j
 
 var _App2 = _interopRequireDefault(_App);
 
+var _Header = __webpack_require__(/*! ./components/Header/Header.jsx */ "./admin/assets/js/components/Header/Header.jsx");
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var root = document.getElementById("app");
+var header = document.getElementById("header");
 
 ReactDOM.render(React.createElement(_App2.default, null), root);
+ReactDOM.render(React.createElement(_Header2.default, null), header);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"), __webpack_require__(/*! react */ "./node_modules/react/index.js")))
 
 /***/ }),
