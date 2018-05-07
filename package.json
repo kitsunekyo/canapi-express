@@ -5,19 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server.js",
-    "dev": "webpack --watch  --progress --config ./webpack.config.js --mode development"
+    "dev": "webpack --watch  --progress --config ./webpack.config.js --mode development",
+    "build": "webpack --config ./webpack.config.js --mode production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-preset-stage-2": "^6.24.1",
     "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
-    "bulma": "^0.7.1",
-    "chart.js": "^2.7.2",
     "cookie-parser": "^1.4.3",
-    "dotenv-webpack": "^1.5.5",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
@@ -28,13 +25,17 @@
     "onoff": "^3.0.2",
     "path": "^0.12.7",
     "pug": "^2.0.3",
-    "python-shell": "^0.5.0",
+    "resolve": "^1.7.1",
+    "python-shell": "^0.5.0"
+  },
+  "devDependencies": {
+    "bulma": "^0.7.1",
+    "chart.js": "^2.7.2",
+    "dotenv-webpack": "^1.5.5",
+    "babel-preset-stage-2": "^6.24.1",
     "react": "^16.3.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.2",
-    "resolve": "^1.7.1"
-  },
-  "devDependencies": {
     "autoprefixer": "^8.4.1",
     "promise": "^8.0.1",
     "url-loader": "^1.0.1",

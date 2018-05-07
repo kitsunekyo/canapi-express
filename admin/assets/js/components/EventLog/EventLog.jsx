@@ -18,7 +18,7 @@ class EventLog extends React.Component {
   }
   fetchEvents() {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:8080/api/event`).then(res => {
+      axios.get(`${ process.env.API_HOST }/event`).then(res => {
         this.setState({
           events: res.data,
           loading: false
