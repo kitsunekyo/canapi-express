@@ -1,44 +1,27 @@
 /* eslint-disable */
 const webpack = require('webpack');
-const vueloader = require('vue-loader');
 const path = require('path');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
   mode: 'development',
-  entry: './resources/assets/js/main.js',
+  entry: './admin/assets/js/index.js',
   output: {
     path: path.resolve(__dirname, './public'),
-    publicPath: '/public/',
-    filename: 'main.bundle.js',
+    publicPath: '/',
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        use: [
-          "babel-loader",
-        ],
-        include: path.resolve(__dirname, 'resources/assets/js'),
-      },
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: "vue-loader",
-            options: {
-              loaders: {
-                scss: 'style-loader!css-loader!sass-loader'
-              }
-            }
-          },
-        ],
-        include: path.resolve(__dirname, 'resources/assets/js/components'),
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, 'admin'),
+        use: ['babel-loader']
       },
       {
         test: /\.scss$/,
-        include: path.resolve(__dirname, 'resources/assets/scss'),
+        include: path.resolve(__dirname, 'admin'),
         use: [{
           loader: 'style-loader',
         }, {
@@ -49,24 +32,22 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
   plugins: [
-    new webpack.ProvidePlugin({
-      Vue: 'vue',
-      Vuex: 'vuex',
-    }),
     new FriendlyErrorsWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      React: 'react',
+      ReactDOM: 'react-dom',
+    }),
   ],
   devServer: {
     port: 8080,
-    https: true,
+    https: false,
     compress: false,
     headers: {
       'Access-Control-Allow-Origin': '*',
-    },
-  },
-  resolve: {
-    alias: {
-      vue$: 'vue/dist/vue.common.js',
     },
   },
 };
