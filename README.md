@@ -17,7 +17,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](docs/screenshot.png)
+![screenshot](docs/assets/screenshot.png)
 
 ## Key Features
 - control your garden via web interface
