@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import MonitorSegment from "./MonitorSegment.jsx";
+
 class Monitor extends React.Component {
   constructor(props) {
     super(props);
@@ -9,8 +11,28 @@ class Monitor extends React.Component {
         air_humidity: 0,
         air_temperature: 0,
         soil_raw_data: 0,
-        soil_status: '?',
+        soil_status: "?"
       },
+      config: {
+        air_humidity: {
+          optimal: {
+            min: 40,
+            max: 60
+          }
+        },
+        air_temperature: {
+          optimal: {
+            min: 20,
+            max: 30
+          }
+        },
+        soil_raw_data: {
+          optimal: {
+            min: 100,
+            max: 100
+          }
+        }
+      }
     };
   }
   componentWillMount() {
@@ -20,7 +42,7 @@ class Monitor extends React.Component {
     axios.get(`http://localhost:8080/api/status`).then(res => {
       this.setState({
         status: res.data,
-        loading: false,
+        loading: false
       });
     });
   }
@@ -28,12 +50,12 @@ class Monitor extends React.Component {
     e.preventDefault();
     if (!this.state.loading) {
       this.setState({
-        loading: true,
+        loading: true
       });
-      console.log('reload');
+      console.log("reload");
       this.fetchMonitor();
     } else {
-      console.log('nope');
+      console.log("nope");
     }
   }
   render() {
@@ -41,39 +63,56 @@ class Monitor extends React.Component {
       <div className="monitor card">
         <header className="card-header">
           <p className="card-header-title">Monitor</p>
-          <a href="#" className="card-header-icon" aria-label="more options" onClick={ this.handleReloadClick.bind(this) }>
+          <a
+            href="#"
+            className="card-header-icon"
+            aria-label="more options"
+            onClick={this.handleReloadClick.bind(this)}
+          >
             <span className="icon">
-              <i className={'fas fa-sync-alt ' + (this.state.loading ? 'fa-spin' : '')} aria-hidden="true" />
+              <i
+                className={
+                  "fas fa-sync-alt " + (this.state.loading ? "fa-spin" : "")
+                }
+                aria-hidden="true"
+              />
             </span>
           </a>
         </header>
         <div className="card-content">
           <div className="content">
-            <div className="monitor-segment">
-              <div className="monitor-segment__value">
-                { this.state.status.air_humidity } <span>%</span>
+            <div className="columns">
+              <div className="column">
+                <MonitorSegment
+                  label="Air Temperature"
+                  val={this.state.status.air_temperature}
+                  config={this.state.config.air_temperature}
+                  unit="°C"
+                  loading={this.state.loading}
+                />
               </div>
-              <div className="monitor-segment__label">Air Humidity</div>
-            </div>
-            <div className="monitor-segment">
-              <div className="monitor-segment__value">
-                { this.state.status.air_temperature } <span>°C</span>
+              <div className="column">
+                <MonitorSegment
+                  label="Air Humidity"
+                  val={this.state.status.air_humidity}
+                  config={this.state.config.air_humidity}
+                  unit="%"
+                  loading={this.state.loading}
+                />
               </div>
-              <div className="monitor-segment__label">Air Temperature</div>
-            </div>
-            <div className="monitor-segment">
-              <div className="monitor-segment__value">
-                { this.state.status.soil_status }
+              <div className="column">
+                <MonitorSegment
+                  label="Soil Status"
+                  val={this.state.status.soil_raw_data * 100}
+                  config={this.state.config.soil_raw_data}
+                  unit=""
+                  loading={this.state.loading}
+                />
               </div>
-              <div className="monitor-segment__label">Soil</div>
             </div>
           </div>
         </div>
-        <footer className="card-footer">
-          <a href="#" className="card-footer-item">
-            Save
-          </a>
-        </footer>
+        <footer className="card-footer" />
       </div>
     );
   }
