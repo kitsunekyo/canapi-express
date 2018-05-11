@@ -11,8 +11,8 @@
     "watch-dev": "NODE_ENV=development webpack --watch  --progress --config ./webpack.config.js",
     "watch-prod": "NODE_ENV=production webpack --watch  --progress --config ./webpack.config.js",
     "build": "npm run build-dev",
-    "build-dev": "webpack --config ./webpack.config.js --mode=development",
-    "build-prod": "webpack --config ./webpack.config.js --mode=production"
+    "build-dev": "NODE_ENV=development webpack --config ./webpack.config.js --mode=development",
+    "build-prod": "NODE_ENV=production webpack --config ./webpack.config.js --mode=production"
   },
   "author": "",
   "license": "ISC",
