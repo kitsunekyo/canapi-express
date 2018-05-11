@@ -13,7 +13,9 @@ const session = require('express-session');
 const apiRouter = require('./app/routes/api');
 const webRouter = require('./app/routes/web');
 
-require('dotenv').config();
+const CONFIG = process.env.NODE_ENV === 'production' ? require('./scripts/production/config.js') : require('./scripts/development/config.js');
+
+// require('dotenv').config();
 
 app.use(logger('dev'));
 
@@ -26,7 +28,7 @@ app.use(express.urlencoded({
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-var port = normalizePort(process.env.PORT || '8080');
+var port = normalizePort(CONFIG.PORT || '8080');
 app.set('port', port);
 
 //use sessions for tracking logins
@@ -43,7 +45,7 @@ app.set('view engine', 'pug');
 app.use(cookieParser());
 
 // Connect to database
-mongoose.connect(process.env.DB_HOST);
+mongoose.connect(CONFIG.DB_HOST);
 
 
 // Routes
@@ -144,3 +146,6 @@ function onListening() {
     'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+console.log(`Server running at http://localhost:8080`);
+console.log(`Mode: ${ process.env.NODE_ENV }`);

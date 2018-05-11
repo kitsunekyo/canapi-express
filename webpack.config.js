@@ -4,6 +4,8 @@ const path = require("path");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
+const CONFIG = process.env.NODE_ENV === 'production' ? path.resolve(__dirname, './scripts/production/config') : path.resolve(__dirname, './scripts/development/config');
+
 module.exports = {
   devtool: "source-map",
   mode: "development",
@@ -47,7 +49,8 @@ module.exports = {
     new FriendlyErrorsWebpackPlugin(),
     new webpack.ProvidePlugin({
       React: "react",
-      ReactDOM: "react-dom"
+      ReactDOM: "react-dom",
+      CONFIG: CONFIG,
     }),
     new Dotenv(),
   ],

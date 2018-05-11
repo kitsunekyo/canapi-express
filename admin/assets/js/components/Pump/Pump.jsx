@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 class Pump extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ class Pump extends React.Component {
     this.setState({
       watering: true
     });
-    axios.post(`${ process.env.API_HOST }/pump/water`).then(res => {
+    axios.post(`${ CONFIG.API_HOST }/pump/water`).then(res => {
       this.runProgress()
         .then(() => {
           this.setState({
@@ -51,7 +52,7 @@ class Pump extends React.Component {
     });
   }
   stopPump() {
-    axios.post(`${ process.env.API_HOST }/pump/off`).then(res => {
+    axios.post(`${ CONFIG.API_HOST }/pump/off`).then(res => {
       this.setState({
         watering: false
       });

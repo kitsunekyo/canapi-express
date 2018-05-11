@@ -1,7 +1,6 @@
-const CONFIG = require('./../../config');
-const DHT11Factory = CONFIG.PI ? require('./../lib/DHT11Factory') : require('./../mocks/lib/DHT11Factory');
+const DHT11Factory = process.env.NODE_ENV === 'production' ? require('./../lib/DHT11Factory') : require('./../mocks/lib/DHT11Factory');
 const dht = new DHT11Factory();
-const moistureSensorFactory = CONFIG.PI ? require('./../lib/MoistureSensorFactory') : require('./../mocks/lib/MoistureSensorFactory');
+const moistureSensorFactory = process.env.NODE_ENV === 'production' ? require('./../lib/MoistureSensorFactory') : require('./../mocks/lib/MoistureSensorFactory');
 const moistureSensor = moistureSensorFactory(17);
 
 const piController = {

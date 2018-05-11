@@ -1,6 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
+
 class EventLog extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,7 @@ class EventLog extends React.Component {
   }
   fetchEvents() {
     return new Promise((resolve, reject) => {
-      axios.get(`${ process.env.API_HOST }/event`).then(res => {
+      axios.get(`${ CONFIG.API_HOST }/event`).then(res => {
         this.setState({
           events: res.data,
           loading: false

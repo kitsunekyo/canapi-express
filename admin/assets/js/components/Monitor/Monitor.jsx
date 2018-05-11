@@ -39,7 +39,7 @@ class Monitor extends React.Component {
     this.fetchMonitor();
   }
   fetchMonitor() {
-    axios.get(`${ process.env.API_HOST }/status`).then(res => {
+    axios.get(`${ CONFIG.API_HOST }/status`).then(res => {
       this.setState({
         status: res.data,
         loading: false
