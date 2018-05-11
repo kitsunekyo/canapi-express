@@ -1,4 +1,4 @@
-const PumpFactory = process.env.PI ? require('./../lib/PumpFactory') : require('./../mocks/lib/PumpFactory');
+const PumpFactory = process.env.NODE_ENV === 'production' ? require('./../lib/PumpFactory') : require('./../mocks/lib/PumpFactory');
 const pump = new PumpFactory(27);
 
 const pumpController = {
