@@ -126,7 +126,7 @@ You'll need to have those packages installed on your machine as well:
 
 ## How To Use
 
-TBD
+- pm2: `sudo env PATH=$PATH:/usr/local/bin pm2 startup systemd -u pi --hp /home/pi`
 
 ## Credits
 - Google Search
