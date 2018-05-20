@@ -28,7 +28,7 @@ const pumpController = {
   },
   water: function (req, res, next) {
     // const pump = new PumpFactory(27);
-    pump.runFor(5000).then(() => {
+    pump.runFor(10000).then(() => {
       res.send({
         message: 'watering',
         data: {
