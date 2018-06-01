@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
+mongoosePaginate.paginate.options = {
+  lean: true,
+  limit: 20
+};
 
 const event = new mongoose.Schema({
   timestamp: {
@@ -19,4 +24,5 @@ const event = new mongoose.Schema({
   collection: 'events'
 });
 
+event.plugin(mongoosePaginate);
 module.exports = mongoose.model('Event', event);
