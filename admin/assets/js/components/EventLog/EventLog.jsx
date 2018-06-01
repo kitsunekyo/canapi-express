@@ -1,90 +1,83 @@
-import axios from "axios";
-import moment from "moment";
-
+import axios from 'axios';
+import moment from 'moment';
 
 class EventLog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      sort: {
-        by: 'timestamp',
-        desc: 1,
-      },
-      events: []
+      data: [],
     };
   }
   componentWillMount() {
     this.fetchEvents();
   }
-  fetchEvents() {
+  fetchEvents(page = 1) {
+    console.log('loading :', page);
     return new Promise((resolve, reject) => {
-      axios.get(`${ CONFIG.API_HOST }/event`).then(res => {
-        this.setState({
-          events: res.data,
-          loading: false
-        });
-        this.sortBy(this.state.sort.by, this.state.sort.desc);
-        resolve();
-      }, (err) => {
-        reject();
-      });
+      axios.get(`${CONFIG.API_HOST}/event?page=${page}`).then(
+        res => {
+          this.setState({
+            data: res.data,
+            loading: false,
+          });
+          resolve();
+        },
+        err => {
+          reject();
+        }
+      );
     });
   }
-  sortBy(prop, desc = false) {
-    let sorted = null;
-    if (desc) {
-      sorted = this.state.events.sort((a, b) => {
-        return new Date(b.timestamp) - new Date(a.timestamp);
-      });
-    } else {
-      sorted = this.state.events.sort((a, b) => {
-        return new Date(a.timestamp) - new Date(b.timestamp);
-      });
+  handlePaginationClick(id, e) {
+    e.preventDefault();
+    if (id !== this.state.data.page) {
+      this.fetchEvents(id);
     }
-    this.setState({
-      events: sorted
-    });
+  }
+  handleNextPageClick(e) {
+    e.preventDefault();
+    const page = parseInt(this.state.data.page);
+    if (page < this.state.data.pages)
+      this.fetchEvents(page + 1);
+  }
+  handlePreviousPageClick(e) {
+    e.preventDefault();
+    const page = parseInt(this.state.data.page);
+    if (page > 1)
+      this.fetchEvents(page - 1);
   }
   handleReloadClick(e) {
     e.preventDefault();
     if (!this.state.loading) {
       this.setState({
-        loading: true
+        loading: true,
       });
       this.fetchEvents();
     } else {
     }
   }
-  handleSortClick(e) {
-    e.preventDefault();
-    if (this.state.sort.desc) {
-      this.sortBy("timestamp", false);
-      this.setState({
-        sort: {
-          desc: 0,
-        },
-      });
-    } else {
-      this.sortBy('timestamp', true);
-      this.setState({
-        sort: {
-          desc: 1,
-        },
-      });
-    }
-  }
   render() {
-    const eventItems = this.state.events.map(event => {
+    console.log('paint');
+    const page = parseInt(this.state.data.page);
+    const eventItems = this.state.data.docs && this.state.data.docs.map(event => {
       return (
         <tr key={event._id}>
           <td>{event.level}</td>
           <td>{event.event}</td>
           <td>{event.note}</td>
-          <td>{moment(event.timestamp).format("YYYY-MM-DD HH:mm:ss")}</td>
+          <td>{moment(event.timestamp).format('YYYY-MM-DD HH:mm:ss')}</td>
         </tr>
       );
     });
+    const paginationItems = [];
+    for (let i = 1; i <= this.state.data.pages; i++) {
+      paginationItems.push(
+        <li key={i}>
+          <a className={"pagination-link" + (this.state.data.page == i ? ' is-current': '')} aria-label={`show page ${i}`} onClick={(e) => this.handlePaginationClick(i, e)}>{i}</a>
+        </li>
+      )
+    }
     return (
       <div className="monitor card">
         <header className="card-header">
@@ -98,7 +91,7 @@ class EventLog extends React.Component {
             <span className="icon">
               <i
                 className={
-                  "fas fa-sync-alt " + (this.state.loading ? "fa-spin" : "")
+                  'fas fa-sync-alt ' + (this.state.loading ? 'fa-spin' : '')
                 }
                 aria-hidden="true"
               />
@@ -114,23 +107,20 @@ class EventLog extends React.Component {
                   <th>Event</th>
                   <th>Note</th>
                   <th>
-                    <a
-                      href="#"
-                      onClick={this.handleSortClick.bind(this)}
-                    >
-                      Timestamp &nbsp;
-                      { (this.state.sort.desc) ? (
-                        <i className="fas fa-caret-down"></i>
-                      ) : (
-                        <i className="fas fa-caret-up"></i>
-                      ) }
-                    </a>
+                      Timestamp
                   </th>
                 </tr>
               </thead>
               <tbody>{eventItems}</tbody>
             </table>
           </div>
+          <nav className="pagination" role="navigation" aria-label="pagination">
+            <a className="pagination-previous" disabled={!(page > 1)} onClick={(e) => this.handlePreviousPageClick(e)}>Previous</a>
+            <a className="pagination-next" disabled={!(page < this.state.data.pages)} onClick={(e) => this.handleNextPageClick(e)}>Next page</a>
+            <ul className="pagination-list">
+              {paginationItems}
+            </ul>
+          </nav>
         </div>
         <footer className="card-footer" />
       </div>

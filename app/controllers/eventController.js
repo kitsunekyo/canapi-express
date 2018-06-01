@@ -6,6 +6,10 @@ const eventController = {
     Event.paginate({}, {
         page: req.query.page || 1,
         limit: 20,
+        lean: true,
+        sort: {
+          timestamp: -1,
+        },
       })
       .then(response => {
         res.json(response);

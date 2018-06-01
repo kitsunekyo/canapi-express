@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run start-dev",
-    "start-dev": "NODE_ENV=development nodemon ./server.js",
-    "start-prod": "NODE_ENV=production nodemon ./server.js",
+    "start-dev": "NODE_ENV=development nodemon --watch app ./server.js",
+    "start-prod": "NODE_ENV=production nodemon --watch app ./server.js",
     "watch": "npm run watch-dev",
     "watch-dev": "NODE_ENV=development webpack --watch  --progress --config ./webpack.config.js",
     "watch-prod": "NODE_ENV=production webpack --watch  --progress --config ./webpack.config.js",
