@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
-mongoosePaginate.paginate.options = {
-  lean: true,
-  limit: 20
-};
 
 const event = new mongoose.Schema({
   timestamp: {
