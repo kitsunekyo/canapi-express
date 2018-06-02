@@ -5,7 +5,11 @@ class Header extends React.Component {
         <div className="container">
           <div className="navbar-brand">
             <a href="#" className="navbar-item">
-              <img src="/img/logo-landscape.png" alt="logo" />
+              <img
+                src="https://github.com/kitsunekyo/leafy-pi/raw/master/docs/assets/plant.png"
+                alt="logo"
+              />
+              <span>Leafy Pi</span>
             </a>
             <a
               className="navbar-burger"
