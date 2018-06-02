@@ -1,6 +1,15 @@
 .monitor {
   height: 100%;
+  &-list {
+    max-width: 750px;
+    margin: 0 auto;
+  }
   &-segment {
+    max-width: 150px;
+    margin: 0 auto;
+    @media (min-width: 768px) {
+      max-width: none;
+    }
     &__value {
       fill: #666;
       font-family: sans-serif;

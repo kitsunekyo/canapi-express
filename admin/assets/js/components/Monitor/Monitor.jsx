@@ -39,7 +39,7 @@ class Monitor extends React.Component {
     this.fetchMonitor();
   }
   fetchMonitor() {
-    axios.get(`${ CONFIG.API_HOST }/status`).then(res => {
+    axios.get(`${CONFIG.API_HOST}/status`).then(res => {
       this.setState({
         status: res.data,
         loading: false
@@ -79,7 +79,7 @@ class Monitor extends React.Component {
         </header>
         <div className="card-content">
           <div className="content">
-            <div className="columns">
+            <div className="columns monitor-list">
               <div className="column">
                 <MonitorSegment
                   label="Air Temperature"

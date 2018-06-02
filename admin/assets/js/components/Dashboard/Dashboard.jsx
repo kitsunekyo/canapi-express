@@ -8,10 +8,12 @@ class Dashboard extends React.Component {
       <div className="dashboard">
         <div className="columns">
           <div className="column">
-            <Monitor />
-          </div>
-          <div className="column">
             <Pump />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <Monitor />
           </div>
         </div>
         <div className="columns">

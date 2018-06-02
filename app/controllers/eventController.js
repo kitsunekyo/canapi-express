@@ -5,7 +5,7 @@ const eventController = {
   index: function (req, res, next) {
     Event.paginate({}, {
         page: req.query.page || 1,
-        limit: 20,
+        limit: 10,
         lean: true,
         sort: {
           timestamp: -1,
