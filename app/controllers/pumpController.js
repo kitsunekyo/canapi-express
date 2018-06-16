@@ -28,11 +28,11 @@ const pumpController = {
   },
   water: function (req, res, next) {
     // const pump = new PumpFactory(27);
-    pump.runFor(10000).then(() => {
+    pump.runFor(7000).then(() => {
       res.send({
         message: 'watering',
         data: {
-          timeout: 10000,
+          timeout: 7000,
         },
       });
     }, (err) => {
